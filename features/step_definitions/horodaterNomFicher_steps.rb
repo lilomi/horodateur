@@ -1,20 +1,17 @@
-Given(/^un nom avec la date (.+)$/) do |date|
- @horodateur = Horodateur.new(date)
+Given(/^un fichier nomme "(.*?)"$/) do |fileName|
+	@oldFileName= fileName
+	@file = File.open(fileName,"w+")
+	@horodateur = Horodateur.new
+	@horodateur.fileName= fileName
 end
 
-Given(/^la nouvelle date (\d+)\/(\d+)\/(\d+)$/) do |day, month, year|
-	@horodateur.setNewDate(day,month,year)
+When(/^je horodate le fichier avec la date du "(.*?)"$/) do |newDate|
+  @horodateur.updateFileName(newDate)
 end
 
-When(/^je remplace l'ancienne date par la nouvelle$/) do
-  @horodateur.replace() 
+Then(/^le fichier se nomme maintenant "(.*?)"$/) do |newFileName|
+	File.exists?(@oldFileName).should ==false 
+	File.exists?(newFileName).should == true
+	File.delete(newFileName)
 end
-
-Then(/^le nom idu fichiercontient "(.*?)"$/) do |arg1|
-  @incl= @horodateur.fileName.include? arg1
-	puts @incl
-	@incl.should == true
-end
-
-
 

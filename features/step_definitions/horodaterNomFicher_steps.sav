@@ -1,0 +1,31 @@
+Given(/^un nom avec la date (.+)$/) do |date|
+ @horodateur = Horodateur.new(date)
+end
+
+Given(/^la nouvelle date (\d+)\/(\d+)\/(\d+)$/) do |day, month, year|
+	@horodateur.setNewDate(day,month,year)
+end
+
+When(/^je remplace l'ancienne date par la nouvelle$/) do
+  @horodateur.replace() 
+end
+
+Then(/^le nom idu fichiercontient "(.*?)"$/) do |arg1|
+  @incl= @horodateur.fileName.include? arg1
+	puts @incl
+	@incl.should == true
+end
+
+
+Given(/^un fichier nommé "(.*?)"$/) do |arg1|
+	@horodateur = Horodateur.new()  
+end
+
+When(/^je horodate le fichier avec la date du "(.*?)"$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^le fichier se nomme maintenant "(.*?)"$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
